@@ -5,9 +5,8 @@
 | :-- | :-- | :-- | :-- |
 | setTimeout | Function | let setTimeoutID = timer.setTimeout(fun, delay) | 替代原生setTimeout |
 | clearTimeout | Function | timer.clearTimeout(setTimeoutID) | 清除timer.setTimeout |
-| setInterval | Function | let setIntervalID = timer.setInterval(fun, delay[, id]) | 替代原生setInterval |
+| setInterval | Function | let setIntervalID = timer.setInterval(fun, delay) | 替代原生setInterval |
 | clearInterval | Function | timer.clearInterval(setIntervalID) | 清除timer.clearInterval |
-| delete | Function | timer.delete(setTimeoutID/setIntervalID) | 相当于clearTimeout & clearInterval |
 | pauseTimeout | Function | timer.pauseTimeout(setTimeoutID) | 暂停指定ID的setTimeout |
 | resumeTimeout | Function | timer.resumeTimeout(setTimeoutID) | 恢复指定ID的setTimeout |
 | pauseInterval | Function | timer.pauseTimeout(setTimeoutID) | 暂停指定ID的setInterval |
