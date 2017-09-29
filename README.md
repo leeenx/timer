@@ -9,8 +9,8 @@
 | clearInterval | Function | timer.clearInterval(setIntervalID) | 清除timer.clearInterval |
 | pauseTimeout | Function | timer.pauseTimeout(setTimeoutID) | 暂停指定ID的setTimeout |
 | resumeTimeout | Function | timer.resumeTimeout(setTimeoutID) | 恢复指定ID的setTimeout |
-| pauseInterval | Function | timer.pauseTimeout(setTimeoutID) | 暂停指定ID的setInterval |
-| resumeInterval | Function | timer.resumeTimeout(setTimeoutID) | 恢复指定ID的setInterval |
+| pauseInterval | Function | timer.pauseInterval(setIntervalID) | 暂停指定ID的setInterval |
+| resumeInterval | Function | timer.resumeInterval(setIntervalID) | 恢复指定ID的setInterval |
 | pause | Function | timer.pause(setTimeoutID/setIntervalID) | 暂停指定ID的计时，如果没指定ID表示暂停所有计时 |
 | resume | Function | timer.resume(setTimeoutID/setIntervalID) | 恢复指定ID的计时，如果没指定ID表示恢复所有计时 |
 
