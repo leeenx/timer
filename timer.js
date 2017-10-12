@@ -4,6 +4,7 @@ var timer = (new function() {
 		var id = stos.length; 
 		stos[id] = {
 			fn: fn, 
+			paused: false, 
 			delay: delay, 
 			start: new Date().getTime(), 
 			id: setTimeout(fn, delay)
@@ -21,7 +22,9 @@ var timer = (new function() {
 	}
 	this.pauseTimeout = function(id) { 
 		var sto = stos[id]; 
-		if(sto === undefined) return false; 
+		if(sto === undefined || sto.paused === true) return false; 
+		// 标记暂停
+		sto.paused = true; 
 		// 清空Timeout
 		clearTimeout(sto.id); 
 		var elapse = new Date().getTime() - sto.start; 
@@ -31,7 +34,9 @@ var timer = (new function() {
 	}
 	this.resumeTimeout = function(id) {
 		var sto = stos[id]; 
-		if(sto === undefined) return false; 
+		if(sto === undefined || sto.paused === false) return false; 
+		// 标记为恢复
+		sto.paused  = false; 
 		// 新建一个 timeout 表示继续 
 		sto.id = timer.setTimeout(sto.fn, sto.delay); 
 		return true;  
@@ -40,6 +45,7 @@ var timer = (new function() {
 		var id = sivs.length; 
 		sivs[id] = {
 			fn: fn, 
+			paused: false, 
 			delay: delay, 
 			start: new Date().getTime(), 
 			id: setInterval(fn, delay)
@@ -57,7 +63,9 @@ var timer = (new function() {
 	}
 	this.pauseInterval = function(id) {
 		var siv = sivs[id]; 
-		if(siv === undefined) return false; 
+		if(siv === undefined || siv.paused === true) return false; 
+		// 标记暂停
+		siv.paused = true; 
 		// 清空 Interval
 		clearInterval(siv.id); 
 		var elapse = (new Date().getTime() - siv.start) % siv.delay; 
@@ -67,12 +75,14 @@ var timer = (new function() {
 	}
 	this.resumeInterval = function(id) {
 		var siv = sivs[id]; 
-		if(siv === undefined) return false; 
+		if(siv === undefined || siv.paused === false) return false; 
+		// 标记恢复
+		siv.paused = false; 
 		// 调一个 setTimeout 执行 wait 的时间
 		this.setTimeout(function() {
 			siv.fn(); 
 			// 新建一个 interval 表示继续
-			siv.id = timer.setInterval(siv.fn, siv.delay); 
+			siv.id = sivs[timer.setInterval(siv.fn, siv.delay)].id; 
 		}, siv.wait); 
 	}
 
@@ -119,5 +129,4 @@ var timer = (new function() {
 		}
 		return false; 
 	}
-
 }());
