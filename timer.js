@@ -7,7 +7,10 @@ var timer = (new function() {
 			paused: false, 
 			delay: delay, 
 			start: new Date().getTime(), 
-			id: setTimeout(fn, delay)
+			id: setTimeout(function() {
+				fn && fn(); 
+				timer.clearTimeout(id); 
+			}, delay)
 		}
 		return id; 
 	}
@@ -38,7 +41,7 @@ var timer = (new function() {
 		// 标记为恢复
 		sto.paused  = false; 
 		// 新建一个 timeout 表示继续 
-		sto.id = timer.setTimeout(sto.fn, sto.delay); 
+		sto.id = stos[timer.setTimeout(sto.fn, sto.delay)].id; 
 		return true;  
 	}
 	this.setInterval = function(fn, delay) {
