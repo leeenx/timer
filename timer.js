@@ -19,7 +19,7 @@ var timer = (new function() {
 		if(sto === undefined) return false; 
 		// 清空Timeout
 		clearTimeout(sto.id); 
-		// 删除这个 id
+		// 删除 id
 		stos.splice(id, 1); 
 		return true; 
 	}
@@ -60,8 +60,34 @@ var timer = (new function() {
 		if(siv === undefined) return false; 
 		// 清空Interval
 		clearInterval(siv.id); 
-		// 删除这个 id
+		// 删除 id
 		sivs.splice(id, 1); 
+		return true; 
+	}
+	// 清空所有的 timeout
+	this.cleanTimeout = function() {
+		for(var i = 0; i < stos.length; ++i) {
+			var sto = stos[id]; 
+			// 清空Timeout
+			sto === undefined || clearTimeout(sto.id); 
+		}
+		// 清空 stos 数组
+		stos = []; 
+	}
+	// 清空所有的 interval
+	this.cleanInterval = function() {
+		for(var i = 0; i < sivs.length; ++i) {
+			var siv = sivs[id]; 
+			// 清空Timeout
+			siv === undefined || clearInterval(siv.id); 
+		}
+		// 清空 stos 数组
+		sivs = []; 
+	}
+	// 清空所有的 timeout 和 interval
+	this.clean = function() {
+		this.cleanTimeout(); 
+		this.cleanInterval();
 		return true; 
 	}
 	this.pauseInterval = function(id) {
