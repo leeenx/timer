@@ -13,7 +13,12 @@
 | resumeInterval | Function | timer.resumeInterval(setIntervalID) | 恢复指定ID的setInterval |
 | pause | Function | timer.pause(setTimeoutID/setIntervalID) | 暂停指定ID的计时，如果没指定ID表示暂停所有计时 |
 | resume | Function | timer.resume(setTimeoutID/setIntervalID) | 恢复指定ID的计时，如果没指定ID表示恢复所有计时 |
+| cleanTimeout | Function | timer.cleanTimeout() | 清空所有的 timer.setTimeout |
+| cleanInterval | Function | timer.cleanInterval() | 清空所有的 timer.setInterval |
+| clean | Function | timer.clean() | 清空所有的 timer.setTimeout & timer.setInterval |
 
 ## 注意
 
 这个工具是基于原生 setTimeout & setInterval 写的，所以它并不能监测到页面被挂起的状态。我更推荐使用另一个基于 `requestAnimationFrame`的 timer: https://github.com/leeenx/es6-utils#timer
+
+
