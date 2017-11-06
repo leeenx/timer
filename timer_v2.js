@@ -19,6 +19,8 @@ function Timer() {
         }); 
     }
 
+    var that = this; 
+
     // 创建一个 Symbol
     this.Symbol = function() {
         return "Symbol_" + new Date().getTime() + "_" + this.Symbol.id++; 
@@ -155,7 +157,7 @@ function Timer() {
             item.elapsed += delta; 
             if(item.elapsed >= item.delay) {
                 item.fn(); 
-                item.type === 0 ? this.delete(id) : (item.elapsed = 0); 
+                item.type === 0 ? that.delete(id) : (item.elapsed = 0); 
             } 
         }); 
     }
