@@ -98,8 +98,8 @@ function Timer() {
     // 修改指定id的 delay/fn
     this.set = function(id, config) { 
         config = config || {}; 
-        let item = this.queue.get(id) || {}; 
-        for(let key in config) {
+        var item = this.queue.get(id) || {}; 
+        for(var key in config) {
             item[key] = config[key]; 
         }
 	   return true; 
@@ -203,7 +203,7 @@ function AnimationFrame() {
 Timer.RAF = new AnimationFrame(); 
 
 // 对外接口
-let timer = new Timer(); 
+var timer = new Timer(); 
 
 // 默认使用原生 RAF
 timer.useRAF = true; 
