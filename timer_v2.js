@@ -129,7 +129,7 @@ function Timer() {
 
     // 清空timer
     this.clean = function() {
-        this.queue = new Map(); 
+        this.queue = new this.Map(); 
         return true; 
     }
 
