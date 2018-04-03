@@ -145,6 +145,16 @@ function Timer() {
 	return true;
     }
 
+    // 重置 elapsed 为 0
+    this.reset = function(id) {
+        id === undefined ? this.resetAll() : (this.queue.get(id).elapsed = 0); 
+    }
+
+    // 重置所有的 elapsed 为 0
+    this.resetAll = function() {
+        this.queue.forEach(function(item) {item.elapsed = 0}); 
+    }
+
     // tick
     this.tick = function(delta) { 
         this.paused || this.updateQueue(delta); 
