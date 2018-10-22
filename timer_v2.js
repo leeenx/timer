@@ -112,7 +112,7 @@ function Timer() {
 
     // 暂停指定id
     this.pause = function(id) {
-        id === undefined ? this.pauseAll() : (this.queue.get(id).paused = 1); 
+        id === undefined ? this.pauseAll() : ((this.queue.get(id) || {}).paused = 1); 
         return true; 
     }
 
@@ -123,7 +123,7 @@ function Timer() {
     
     // 播放指定id
     this.play = function(id) {
-        id === undefined ? this.playAll() : (this.queue.get(id).paused = 0); 
+        id === undefined ? this.playAll() : ((this.queue.get(id) || {}).paused = 0); 
         return true; 
     } 
 
@@ -147,7 +147,7 @@ function Timer() {
 
     // 重置 elapsed 为 0
     this.reset = function(id) {
-        id === undefined ? this.resetAll() : (this.queue.get(id).elapsed = 0); 
+        id === undefined ? this.resetAll() : ((this.queue.get(id) || {}).elapsed = 0); 
     }
 
     // 重置所有的 elapsed 为 0
