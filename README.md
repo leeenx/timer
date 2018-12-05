@@ -1,27 +1,4 @@
 # timer
-一个基于原生 setTimeout & setInterval 的时间轴管理工具，它的 APIs 如下：
-
-| name | type | syntax | detail |
-| :-- | :-- | :-- | :-- |
-| setTimeout | Function | let setTimeoutID = timer.setTimeout(fun, delay) | 替代原生setTimeout |
-| clearTimeout | Function | timer.clearTimeout(setTimeoutID) | 清除timer.setTimeout |
-| setInterval | Function | let setIntervalID = timer.setInterval(fun, delay) | 替代原生setInterval |
-| clearInterval | Function | timer.clearInterval(setIntervalID) | 清除timer.clearInterval |
-| pauseTimeout | Function | timer.pauseTimeout(setTimeoutID) | 暂停指定ID的setTimeout |
-| resumeTimeout | Function | timer.resumeTimeout(setTimeoutID) | 恢复指定ID的setTimeout |
-| pauseInterval | Function | timer.pauseInterval(setIntervalID) | 暂停指定ID的setInterval |
-| resumeInterval | Function | timer.resumeInterval(setIntervalID) | 恢复指定ID的setInterval |
-| pause | Function | timer.pause(setTimeoutID/setIntervalID) | 暂停指定ID的计时，如果没指定ID表示暂停所有计时 |
-| resume | Function | timer.resume(setTimeoutID/setIntervalID) | 恢复指定ID的计时，如果没指定ID表示恢复所有计时 |
-| cleanTimeout | Function | timer.cleanTimeout() | 清空所有的 timer.setTimeout |
-| cleanInterval | Function | timer.cleanInterval() | 清空所有的 timer.setInterval |
-| clean | Function | timer.clean() | 清空所有的 timer.setTimeout & timer.setInterval |
-
-## 注意
-
-这个工具是基于原生 setTimeout & setInterval 写的，所以它并不能监测到页面被挂起的状态。我更推荐使用另一个基于 `requestAnimationFrame`的 timer: https://github.com/leeenx/es6-utils#timer
-
-# timer_v2
 一个基于 RAF 的时间管理工具，它的APIs 如下:
 
 | name | type | syntax | detail |
@@ -42,4 +19,35 @@
 | resetAll | Function | timer.resetAll() | 调用resetAll后，所有计时会被置零 |
 | useRAF | Boolean | timer.useRAF = true / false | true 表示启用自身RAF，false 反之。与第三方ticker结合时，timer 会自动切换 |
 
-`timer_v2` 只是 [https://github.com/leeenx/es6-utils/blob/master/modules/timer.js](https://github.com/leeenx/es6-utils/blob/master/modules/timer.js) 的 ES5 版本。只是因为有一些项目需要降级使用 ES5 所以迁移过来的，如果移动端开始，建议使用这个 timer
+`timer_v2` 只是 [https://github.com/leeenx/es6-utils/blob/master/modules/timer.js](https://github.com/leeenx/es6-utils/blob/master/modules/timer.js) 的 ES5 版本。
+
+如果不支持 RAF 的浏览器，需要自己添加一个 RAF 的 poly-fill。像我直接使用以下代码：
+
+```javascript
+// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+// http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
+// requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
+// MIT license
+(function() {
+    var lastTime = 0;
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+    }
+    if (!window.requestAnimationFrame) window.requestAnimationFrame = function(callback, element) {
+        var currTime = new Date().getTime();
+        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+        var id = window.setTimeout(function() {
+            callback(currTime + timeToCall);
+        }, timeToCall);
+        lastTime = currTime + timeToCall;
+        return id;
+    };
+    if (!window.cancelAnimationFrame) window.cancelAnimationFrame = function(id) {
+        clearTimeout(id);
+    };
+}());
+```
+
+
