@@ -85,7 +85,12 @@ class Timer {
 
   // 暂停指定id
   pause (id) {
-    !id ? this.pauseAll() : (this.queue.get(id).paused = 1)
+    if (!id) {
+      this.pauseAll()
+    } else {
+      const item = this.queue.get(id)
+      if (item) item.paused = 1
+    }
     return true
   }
 
@@ -96,7 +101,12 @@ class Timer {
 
   // 播放指定id
   play (id) {
-    !id ? this.playAll() : (this.queue.get(id).paused = 0)
+    if (!id) {
+      this.playAll()
+    } else {
+      const item = this.queue.get(id)
+      if (item) item.paused = 0
+    }
     return true
   }
 
@@ -124,7 +134,12 @@ class Timer {
 
   // 重置 elapsed 为 0
   reset (id) {
-    !id ? this.resetAll() : (this.queue.get(id).elapsed = 0)
+    if (!id) {
+      this.resetAll()
+    } else {
+      const item = this.queue.get(id)
+      if (item) item.elapsed = 0
+    }
   }
 
   // 重置所有的 elapsed 为 0
