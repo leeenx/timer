@@ -4,10 +4,10 @@
 | name | type | syntax | detail |
 | :-- | :-- | :-- | :-- |
 | setTimeout | Function | let setTimeoutID = timer.setTimeout(fun, delay[, id]) | 替代原生setTimeout，第三个参数表示指定一个有意义的setTimeoutID |
-| clearTimeout | Function | timer.clearTimeout(setTimeoutID) | 清除timer.setTimeout |
+| clearTimeout | Function | timer.clearTimeout(setTimeoutID1, setTimeoutID2, ...) | 清除timer.setTimeout |
 | setInterval | Function | let setIntervalID = timer.setInterval(fun, delay[, id]) | 替代原生setInterval，第三个参数表示指定一个有意义的setIntervalID |
-| clearInterval | Function | timer.clearInterval(setIntervalID) | 清除timer.clearInterval |
-| delete | Function | timer.delete(setTimeoutID/setIntervalID) | 相当于clearTimeout & clearInterval |
+| clearInterval | Function | timer.clearInterval(setIntervalID1, setIntervalID2, ...) | 清除timer.clearInterval |
+| delete | Function | timer.delete(id1, id2, ...) | 相当于clearTimeout & clearInterval |
 | pause | Function | timer.pause(setTimeoutID/setIntervalID) | 暂停指定ID的计时，如果没指定ID表示暂停所有计时 |
 | resume | Function | timer.resume(setTimeoutID/setIntervalID) | 恢复指定ID的计时，如果没指定ID表示恢复所有计时 |
 | play | Function | timer.play(setTimeoutID/setIntervalID) | 同 resume |
