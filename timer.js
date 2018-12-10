@@ -79,8 +79,8 @@ class Timer {
   }
 
   // 删除 queue 上的成员
-  delete (id) {
-    return this.queue.delete(id)
+  delete (...ids) {
+    return ids.every(id => this.queue.delete(id))
   }
 
   // 暂停指定id
