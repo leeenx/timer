@@ -47,8 +47,8 @@ class Timer {
   }
 
   // clearTimeout
-  clearTimeout (id) {
-    return this.delete(id)
+  clearTimeout (...ids) {
+    return this.delete(...ids)
   }
 
   // setInterval 的实现
@@ -65,8 +65,8 @@ class Timer {
   }
 
   // clearInterval
-  clearInterval (id) {
-    return this.delete(id)
+  clearInterval (...ids) {
+    return this.delete(...ids)
   }
 
   // 修改指定id的 delay/fn
