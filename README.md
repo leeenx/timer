@@ -19,7 +19,7 @@
 | resetAll | Function | timer.resetAll() | 调用resetAll后，所有计时会被置零 |
 | useRAF | Boolean | timer.useRAF = true / false | true 表示启用自身RAF，false 反之。与第三方ticker结合时，timer 会自动切换 |
 
-`timer_v2` 只是 [https://github.com/leeenx/es6-utils/blob/master/modules/timer.js](https://github.com/leeenx/es6-utils/blob/master/modules/timer.js) 的 ES5 版本。
+`timer-es5.js` 只是 [https://github.com/leeenx/es6-utils/blob/master/modules/timer.js](https://github.com/leeenx/es6-utils/blob/master/modules/timer.js) 的 ES5 版本。
 
 如果不支持 RAF 的浏览器，需要自己添加一个 RAF 的 poly-fill。像我直接使用以下代码：
 
