@@ -12,7 +12,30 @@
     @ timer.clean() 清空所有 timeout & interval
 */
 
-class Timer {
+class AnimationFrame {
+  auto = (elapsed, timer) => {
+    timer.tick(elapsed - timer.stamp)
+    timer.stamp = elapsed
+    timer.id = requestAnimationFrame(
+      elapsed => this.auto(elapsed, timer)
+    )
+  }
+  enable (timer) {
+    timer.paused = false
+    timer.stamp = 0
+    timer.id = requestAnimationFrame(
+      elapsed => this.auto(elapsed, timer)
+    )
+  }
+  disable (timer) {
+    cancelAnimationFrame(timer.id)
+  }
+}
+
+// 原生RAF
+const RAF = new AnimationFrame()
+
+export class Timer {
   // 构造函数
   constructor () {
     // 暂停状态 - 这是个公共状态，由外部 Ticker 决定
@@ -21,16 +44,8 @@ class Timer {
     // 队列
     this.queue = new Map()
 
-    // 正在使用 timer 的 RAF
-    this.usingRAF = false
-
-    // useRAF 触发器
-    Reflect.defineProperty(this, 'useRAF', {
-      set (value) {
-        Reflect.set(this, 'usingRAF', value)
-        value ? Timer.RAF.enable() : Timer.RAF.disable()
-      }
-    })
+    // 开启 RAF
+    RAF.enable(this)
   }
 
   // setTimeout 的实现
@@ -165,46 +180,10 @@ class Timer {
       }
     })
   }
-
-  // 状态更新
-  update () {
-    // 第一次调用 update 时主动停用原生接口
-    this.useRAF = false
-
-    // 下面是真正的 update
-    this.update = delta => {
-      if (this.usingRAF) return
-      this.tick(delta)
-    }
-  }
 }
 
 // 对外接口
 const timer = new Timer()
 
-class AnimationFrame {
-  constructor () {
-    this.time = 0
-    this.auto = this.auto.bind(this)
-  }
-  auto (elapsed) {
-    timer.tick(elapsed - this.time)
-    this.time = elapsed
-    this.id = requestAnimationFrame(this.auto)
-  }
-  enable () {
-    timer.paused = false
-    this.id = requestAnimationFrame(this.auto)
-  }
-  disable () {
-    cancelAnimationFrame(this.id)
-  }
-}
-
-// 原生RAF
-Timer.RAF = new AnimationFrame()
-
-// 默认使用原生 RAF
-timer.useRAF = true
 // 导出timer
 export default timer
